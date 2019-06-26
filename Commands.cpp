@@ -21,11 +21,18 @@ void Commands::registerCommand(const char *commandStr,callback callbackRef, int 
 bool Commands::parseCommands(char *buffer)
 {
   for(int i=0;i<this->length;i++){
-    if(this->argFlags[i]==Commands::INT){
-      if( this->parseIntCommand(i,buffer) )
+    switch(this->argFlags[i]){
+      case Commands::INT:
+        if( this->parseIntCommand(i,buffer) )
+          return true;
+      break;
+      case Commands::NONE:
+        if( this->parseCommand(i,buffer) )
         return true;
-    }
+      default:
 
+      break;
+    }
   }
   return false;
 }
@@ -42,5 +49,17 @@ bool Commands::parseIntCommand(int commandIndex, char *buffer)
     return true;
     
   }
+  return false;
+}
+
+bool Commands::parseCommand(int commandIndex, char *buffer)
+{
+  int len = strlen(this->commandStr[commandIndex]);
+  int matched = strncasecmp(buffer,this->commandStr[commandIndex],len);
+  if( matched==0 ){
+    this->callbacks[commandIndex](NULL);
+    return true;
+  }    
+  
   return false;
 }
