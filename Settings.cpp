@@ -84,3 +84,5 @@ int Settings::getValue(int address)
 {  
   return *(this->ptr[address]);
 }
+
+
