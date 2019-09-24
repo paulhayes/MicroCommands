@@ -16,6 +16,7 @@ class SerialComms
   private:
   Serial_ * serial;
   char * buffer;
+  int bufLen;
 };
 
 

@@ -1,15 +1,18 @@
 #include <SerialComms.h>
 #include <Arduino.h>
+#include "readline.h"
 
 SerialComms::SerialComms(Serial_ *serial,int bufLen)
 {
   this->serial = serial;
   this->buffer = new char[bufLen];  
+  this->bufLen = bufLen;
 }
 
 void SerialComms::update()
 {
-  int address = 0;
+  if( readline(this->buffer,this->bufLen) ){
+    int address = 0;
     int value = 0;
     if( this->settings.parseAllGetLine(this->buffer) ){
       int i=0;
@@ -33,4 +36,5 @@ void SerialComms::update()
     else if( commands.parseCommands(buffer) ){
       this->serial->println("ok");
     }
+  }
 }
