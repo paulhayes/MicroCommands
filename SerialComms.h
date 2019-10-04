@@ -4,6 +4,10 @@
 
 #pragma once
 
+#ifdef CORE_TEENSY
+#define Serial_ Stream  
+#endif
+
 class SerialComms 
 {
   
