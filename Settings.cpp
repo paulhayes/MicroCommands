@@ -60,6 +60,11 @@ int Settings::parseGetLine(char *buffer, int& address, int& value)
   return address;
 }
 
+
+bool Settings::parseInfo(char *buffer){
+  return (strcmp(buffer,"$I") == 0) || (strcmp(buffer,"$i") == 0 );
+}
+
 bool Settings::parseAllGetLine(char *buffer)
 {
   int matched = strcmp(buffer,"$$");

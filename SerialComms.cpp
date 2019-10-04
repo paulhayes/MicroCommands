@@ -14,6 +14,9 @@ void SerialComms::update()
   if( readline(this->buffer,this->bufLen) ){
     int address = 0;
     int value = 0;
+    if( this->settings.parseInfo(this->buffer) ){
+      this->serial->println( this->settings.buildInfoString );          
+    }
     if( this->settings.parseAllGetLine(this->buffer) ){
       int i=0;
       while(this->settings.nextProp(i)){
